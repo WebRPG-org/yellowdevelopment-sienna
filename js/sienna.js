@@ -1,6 +1,6 @@
 (function () {
-  const SIENNA_VERSION = "1.1.1";
-  const SIENNA_BUILD = "22";
+  const SIENNA_VERSION = "1.1.2";
+  const SIENNA_BUILD = "23";
   const CLASSIC_LOGO = String.raw`           /$$
           |__/
   /$$$$$$$ /$$  /$$$$$$  /$$$$$$$  /$$$$$$$   /$$$$$$
@@ -80,50 +80,47 @@
     // Add or edit update cards here. Change storageKey when you want everyone to
     // see the panel again after a new release.
     updates: {
-      storageKey: "sienna_updates_seen_v1_01_01",
+      storageKey: "sienna_updates_seen_v1_01_02",
       showOnFirstVisit: true,
+      previousLogsUrl: "updatelogs.json",
       title: "What's new",
-      version: "v1.1 (.1)",
+      version: "v1.1.2",
       sections: [
         {
-          title: "Games",
-          description: "Added Trombone Champ, Added How To Fish, Added 20 Minutes till Dawn, Added Miside, Added Half-Life, Added Half-Life: Opposing Force, Added GTA 3, Added Granny 3, Added Peak, Updated Bendy and the Ink --> Complete Edition, Updated Brotato --> Paws & Claws Update, Fixed Monster Tracks, Removed Speed Stars (Due to Glitch), Removed Base Eaglercraft 1.12.2 , Removed GTA 1 & 2 (Didn't Work), Removed Half-Life 2 (Flash)",
-        },
-        {
-          title: "New Alternative Domains",
-          description: "ixl-recommendations.vercel.app, usesienna.pages.dev, sienna.yellowdevelopment.workers.dev",
-        },
-        {
-          title: "Minor Patches",
-          description: "Deleted Speedstars and Five Night's at Frickbears 3 Gamecards. Renamed Google Classroom prenamed cloak to include the - Classroom.",
+          title: "Integrated gn-math interface, compressed background sizes, added history to update logs + minor patches",
+          description: "Thank you for using sienna.",
         },
       ],
     },
 
+    showingPreviousUpdateLogs: false,
+    previousUpdateLogIndex: 0,
+    updateLogHistory: {
+      loaded: false,
+      loading: false,
+      error: "",
+      entries: [],
+    },
+
     themes:[
       { id: 'sienna-blue', label: 'Legacy Deep Sea Blue', variant: 'gradient' },
-      { id: 'Astray', label: 'Astray', url: 'backgrounds/astray.jpg' },
-      { id: 'Invain', label: 'Invain', url: 'backgrounds/invain.jpg' },
-      { id: 'Isolated', label: 'Isolated', url: 'backgrounds/isolated.jpg' },
-      { id: 'backrooms', label: 'Backrooms', url: 'backgrounds/backrooms.jpg' },
-      { id: 'interstellar', label: 'Interstellar', url: 'backgrounds/interstellar.jpg' },
-      { id: 'projecthailmary', label: 'Project Hail Mary', url: 'backgrounds/projecthailmary.jpg' },
+      { id: 'Astray', label: 'Astray', url: 'backgrounds/astray.webp' },
+      { id: 'Invain', label: 'Invain', url: 'backgrounds/invain.webp' },
+      { id: 'Isolated', label: 'Isolated', url: 'backgrounds/isolated.webp' },
+      { id: 'backrooms', label: 'Backrooms', url: 'backgrounds/backrooms.webp' },
+      { id: 'interstellar', label: 'Interstellar', url: 'backgrounds/interstellar.webp' },
+      { id: 'projecthailmary', label: 'Project Hail Mary', url: 'backgrounds/projecthailmary.webp' },
       { id: 'terraria', label: 'Terraria', url: 'backgrounds/terraria.png' },
-      { id: 'classicroblox', label: 'Classic Roblox', url: 'backgrounds/classicroblox.jpeg' },
-      { id: 'hollowknight', label: 'Hollow Knight', url: 'backgrounds/hollowknight.jpg' },
-      { id: 'hollowknightsilksong', label: 'Hollow Knight: Silksong', url: 'backgrounds/hollowknightsilksong.jpg' },
-      { id: 'meaning', label: 'Meaning', url: 'backgrounds/meaning.jpg' },
-      { id: 'underthestarrysky', label: 'Under the Starry Sky', url: 'backgrounds/underthestarrysky.jpg' },
-      { id: 'walkbythebeach', label: 'Walk by the Beach', url: 'backgrounds/walkbythebeach.gif' },
-      { id: 'yourname', label: 'Your Name', url: 'backgrounds/yourname.gif' },
-      { id: 'minecraftforest', label: 'Minecraft Forest', url: 'backgrounds/minecraftforest.gif' },
-      { id: 'sakuracherrybiome', label: 'Sakura Biome', url: 'backgrounds/sakuracherrybiome.gif' },
-      { id: 'Akaza\'s Fireworks', label: 'Akaza\'s Fireworks', url: 'backgrounds/kny.gif' },
+      { id: 'hollowknight', label: 'Hollow Knight', url: 'backgrounds/hollowknight.webp' },
+      { id: 'hollowknightsilksong', label: 'Hollow Knight: Silksong', url: 'backgrounds/hollowknightsilksong.webp' },
+      { id: 'meaning', label: 'Meaning', url: 'backgrounds/meaning.webp' },
+      { id: 'underthestarrysky', label: 'Under the Starry Sky', url: 'backgrounds/underthestarrysky.webp' },
+      { id: 'walkbythebeach', label: 'Walk by the Beach', url: 'backgrounds/walkbythebeach.webp' },
+      { id: 'minecraftforest', label: 'Minecraft Forest', url: 'backgrounds/minecraftforest.webp' },
+      { id: 'sakuracherrybiome', label: 'Sakura Biome', url: 'backgrounds/sakuracherrybiome.webp' },
       { id: 'cyberpunk', label: 'Cyberpunk', url: 'backgrounds/cyberpunk.gif' },
-      { id: 'かえりみち', label: 'かえりみち', url: 'backgrounds/かえりみち.jpg' },
-      { id: '心流', label: '心流', url: 'backgrounds/心流.jpg' },
-      { id: 'larp', label: 'larp', url: 'backgrounds/larp.jpg' },
-      { id: 'waifumommy', label: 'Waifu Mommy', url: 'backgrounds/waifumommy.jpg' },
+      { id: 'かえりみち', label: 'かえりみち', url: 'backgrounds/かえりみち.webp' },
+      { id: '心流', label: '心流', url: 'backgrounds/心流.webp' },
     ],
 
     registry:[
@@ -200,10 +197,10 @@
         id: "gamesProvider",
         section: "Games",
         label: "Games provider",
-        desc: "Choose your games source: sienna's built-in list, Lumin, or gn-math. (Relays coming soon)",
+        desc: "Choose different providers for games",
 
         type: "choice",
-        options: ["night.", "Lumin", "gn-math"],
+        options: ["night.", "gn-math", "Lumin"],
         get: () => window.siennaSettings.state.gamesProvider,
         set: (value) => {
           const valid = ["night.", "Lumin", "gn-math"];
@@ -524,81 +521,24 @@
     },
 
     applyGamesProvider(provider) {
-      const browseGrid = document.getElementById("browseGrid");
-      const favoritesSection = document.getElementById("favoritesSection");
-      const featured = document.getElementById("featured");
-      const featuredDots = document.getElementById("featuredDots");
-      const labels = document.querySelectorAll(".grid-section-label");
-      const browseTop = document.querySelector(".browse-top");
       const host = document.getElementById("page-browse") || document.body;
-      let lumin = document.getElementById("lumin-section");
-      let gnmath = document.getElementById("gnmath-section");
 
-      // Remove provider-specific sections when switching away
-      if (provider !== "Lumin") {
-        lumin?.remove();
-      }
-      if (provider !== "gn-math") {
-        gnmath?.remove();
-      }
-
-      if (provider === "night.") {
-        if (browseGrid) browseGrid.style.display = "";
-        if (favoritesSection) favoritesSection.style.display = "";
-        if (featured) featured.style.display = "";
-        if (featuredDots) featuredDots.style.display = "";
-        if (browseTop) browseTop.style.display = "";
-        labels.forEach((label) => { label.style.display = ""; });
+      // Providers live in js/providers.js. gn-math renders into night.'s own
+      // grid; Lumin keeps its own SDK container.
+      if (window.siennaProviders?.apply) {
+        window.siennaProviders.apply(provider, { host });
         return;
       }
 
-      // Hide native sienna elements for all non-default providers
-      if (browseGrid) browseGrid.style.display = "none";
-      if (favoritesSection) favoritesSection.style.display = "none";
-      if (featured) featured.style.display = "none";
-      if (featuredDots) featuredDots.style.display = "none";
-      if (browseTop) browseTop.style.display = "none";
-      labels.forEach((label) => { label.style.display = "none"; });
-
-      if (provider === "gn-math") {
-        if (!gnmath) {
-          gnmath = document.createElement("section");
-          gnmath.id = "gnmath-section";
-          gnmath.style.cssText = "position:absolute;inset:0;z-index:10;background:#000;margin:24px;border-radius:18px;overflow:hidden;";
-          gnmath.innerHTML = '<iframe src="mages/gnmath/index.html" style="width:100%;height:100%;border:0;background:#000;"></iframe>';
-          host.appendChild(gnmath);
-        }
-        return;
-      }
-
-      // Lumin provider
-      if (!lumin) {
-        lumin = document.createElement("section");
-        lumin.id = "lumin-section";
-        lumin.style.cssText = "position:absolute;inset:0;z-index:10;background:#000;margin:24px;border-radius:18px;overflow:hidden;";
-        lumin.innerHTML = '<div id="games" class="lumin-games" style="width:100%;height:100%;min-height:680px;"></div>';
-        host.appendChild(lumin);
-      }
-
-      const initLumin = () => {
-        if (window.Lumin?.init) {
-          window.Lumin.init({ container: "#games", theme: "dark", columns: 12, gamesPerPage: 60 });
-        }
-      };
-
-      if (window.Lumin) {
-        initLumin();
-        return;
-      }
-
-      if (!document.querySelector('script[data-sienna-provider="lumin"]')) {
-        const script = document.createElement("script");
-        script.src = "https://cdn.jsdelivr.net/gh/luminsdk/script@latest/lumin.min.js";
-        script.async = true;
-        script.dataset.siennaProvider = "lumin";
-        script.addEventListener("load", initLumin);
-        document.head.appendChild(script);
-      }
+      // Fallback when js/providers.js is unavailable: keep night.'s own grid and
+      // drop any provider containers left behind by an older build.
+      document.getElementById("lumin-section")?.remove();
+      document.getElementById("gnmath-section")?.remove();
+      const browseGrid = document.getElementById("browseGrid");
+      if (browseGrid) browseGrid.style.display = "";
+      document.querySelectorAll(".grid-section-label").forEach((label) => {
+        label.style.display = "";
+      });
     },
 
     applyTabCloak(cloakId, customTitle, customFavicon) {
@@ -761,6 +701,7 @@
       const existingPopup = document.getElementById("updatesPopup");
       if (existingPopup) {
         existingPopup.innerHTML = this.renderUpdatesPopupMarkup();
+        this.bindUpdatesPopupControls(existingPopup);
       }
 
       document.getElementById("updatesBtn")?.addEventListener("click", (event) => {
@@ -894,6 +835,10 @@
     },
 
     renderUpdatesPopupMarkup() {
+      if (this.showingPreviousUpdateLogs) {
+        return this.renderPreviousUpdatesPopupMarkup();
+      }
+
       const sections = Array.isArray(this.updates.sections) ? this.updates.sections : [];
       return `
         <div class="updates-popup-header">
@@ -906,19 +851,17 @@
               <div class="updates-popup-version">${this.escapeHtml(this.updates.version)}</div>
             </div>
           </div>
-          <button class="updates-popup-close" id="updatesPopupClose" type="button" aria-label="Close updates">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M18 6L6 18M6 6l12 12"></path>
-            </svg>
-          </button>
+          <div class="updates-popup-actions">
+            <button class="updates-popup-link" id="updatesPopupHistory" type="button">History</button>
+            <button class="updates-popup-close" id="updatesPopupClose" type="button" aria-label="Close updates">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18 6L6 18M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
         </div>
         <div class="updates-popup-body">
-          ${sections.map((section) => `
-            <section class="updates-popup-section">
-              <strong>${this.escapeHtml(section.title || "Update")}</strong>
-              <span>${this.escapeHtml(section.description || "")}</span>
-            </section>
-          `).join("")}
+          ${this.renderUpdateSectionsMarkup(sections)}
         </div>
         <div class="updates-popup-footer">
           <button class="updates-popup-confirm" id="updatesPopupConfirm" type="button">Wow really?</button>
@@ -926,16 +869,154 @@
       `;
     },
 
+    renderPreviousUpdatesPopupMarkup() {
+      const history = this.updateLogHistory;
+      let body = "";
+      let footer = `<button class="updates-popup-confirm" id="updatesPopupConfirm" type="button">Done</button>`;
+
+      if (history.loading) {
+        body = `<div class="updates-popup-status">Loading previous update logs...</div>`;
+      } else if (history.error) {
+        body = `<div class="updates-popup-status error">${this.escapeHtml(history.error)}</div>`;
+      } else if (!history.entries.length) {
+        body = `<div class="updates-popup-status">No previous update logs found.</div>`;
+      } else {
+        const logs = this.getPreviousUpdateLogsNewestFirst();
+        const maxIndex = logs.length - 1;
+        const activeIndex = Math.min(Math.max(this.previousUpdateLogIndex, 0), maxIndex);
+        const log = logs[activeIndex];
+        this.previousUpdateLogIndex = activeIndex;
+        body = `
+          <article class="updates-popup-log">
+            <h3>${this.escapeHtml(log.title || "Update")}</h3>
+            <div class="updates-popup-log-sections">
+              ${this.renderUpdateSectionsMarkup(Array.isArray(log.sections) ? log.sections : [])}
+            </div>
+          </article>
+        `;
+        footer = `
+          <button class="updates-popup-secondary" id="updatesPopupNewer" type="button"${activeIndex === 0 ? " disabled" : ""}>Newer</button>
+          <span class="updates-popup-count">${activeIndex + 1} of ${logs.length}</span>
+          <button class="updates-popup-secondary" id="updatesPopupOlder" type="button"${activeIndex === maxIndex ? " disabled" : ""}>Older</button>
+        `;
+      }
+
+      return `
+        <div class="updates-popup-header">
+          <div class="updates-popup-heading">
+            <div class="updates-popup-sparkle" aria-hidden="true">
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 576 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M567.938 243.908L462.25 85.374A48.003 48.003 0 0 0 422.311 64H153.689a48 48 0 0 0-39.938 21.374L8.062 243.908A47.994 47.994 0 0 0 0 270.533V400c0 26.51 21.49 48 48 48h480c26.51 0 48-21.49 48-48V270.533a47.994 47.994 0 0 0-8.062-26.625zM162.252 128h251.497l85.333 128H376l-32 64H232l-32-64H76.918l85.334-128z"></path></svg>
+            </div>
+            <div>
+              <div class="updates-popup-title">Previous update logs</div>
+              <div class="updates-popup-version">${this.escapeHtml(this.updates.version)}</div>
+            </div>
+          </div>
+          <div class="updates-popup-actions">
+            <button class="updates-popup-link" id="updatesPopupCurrent" type="button">Current</button>
+            <button class="updates-popup-close" id="updatesPopupClose" type="button" aria-label="Close updates">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18 6L6 18M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="updates-popup-body updates-popup-history">
+          ${body}
+        </div>
+        <div class="updates-popup-footer">
+          ${footer}
+        </div>
+      `;
+    },
+
+    getPreviousUpdateLogsNewestFirst() {
+      return [...this.updateLogHistory.entries].reverse();
+    },
+
+    renderUpdateSectionsMarkup(sections) {
+      return sections.map((section) => {
+        const title = section.title || "";
+        const description = section.description || "";
+        return `
+          <section class="updates-popup-section">
+            ${title ? `<strong>${this.escapeHtml(title)}</strong>` : ""}
+            ${description ? `<span>${this.escapeHtml(description)}</span>` : ""}
+          </section>
+        `;
+      }).join("");
+    },
+
+    bindUpdatesPopupControls(popup) {
+      popup.querySelector("#updatesPopupClose")?.addEventListener("click", () => this.closeUpdatesPopup());
+      popup.querySelector("#updatesPopupConfirm")?.addEventListener("click", () => this.closeUpdatesPopup());
+      popup.querySelector("#updatesPopupHistory")?.addEventListener("click", () => this.showPreviousUpdateLogs());
+      popup.querySelector("#updatesPopupCurrent")?.addEventListener("click", () => this.showCurrentUpdateLog());
+      popup.querySelector("#updatesPopupNewer")?.addEventListener("click", () => this.goToPreviousUpdateLog(-1));
+      popup.querySelector("#updatesPopupOlder")?.addEventListener("click", () => this.goToPreviousUpdateLog(1));
+    },
+
+    renderUpdatesPopup() {
+      const popup = document.getElementById("updatesPopup");
+      if (!popup) return;
+      popup.innerHTML = this.renderUpdatesPopupMarkup();
+      this.bindUpdatesPopupControls(popup);
+    },
+
+    showCurrentUpdateLog() {
+      this.showingPreviousUpdateLogs = false;
+      this.renderUpdatesPopup();
+    },
+
+    showPreviousUpdateLogs() {
+      this.showingPreviousUpdateLogs = true;
+      this.previousUpdateLogIndex = 0;
+      this.renderUpdatesPopup();
+      this.loadPreviousUpdateLogs();
+    },
+
+    goToPreviousUpdateLog(direction) {
+      const logs = this.getPreviousUpdateLogsNewestFirst();
+      if (!logs.length) return;
+      const maxIndex = logs.length - 1;
+      this.previousUpdateLogIndex = Math.min(Math.max(this.previousUpdateLogIndex + direction, 0), maxIndex);
+      this.renderUpdatesPopup();
+    },
+
+    async loadPreviousUpdateLogs() {
+      const history = this.updateLogHistory;
+      if (history.loaded || history.loading) return;
+
+      history.loading = true;
+      history.error = "";
+      this.renderUpdatesPopup();
+
+      try {
+        const response = await fetch(this.updates.previousLogsUrl, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Could not load ${this.updates.previousLogsUrl}`);
+        const data = await response.json();
+        const entries = Array.isArray(data) ? data : data.updates;
+        history.entries = Array.isArray(entries) ? entries : [];
+        history.loaded = true;
+      } catch (error) {
+        history.error = "Previous update logs could not be loaded.";
+      } finally {
+        history.loading = false;
+        if (this.showingPreviousUpdateLogs) this.renderUpdatesPopup();
+      }
+    },
+
     toggleUpdatesPopup(forceState = null) {
       const popup = document.getElementById("updatesPopup");
       const button = document.getElementById("updatesBtn");
       if (!popup || !button) return;
 
-      popup.innerHTML = this.renderUpdatesPopupMarkup();
-      popup.querySelector("#updatesPopupClose")?.addEventListener("click", () => this.closeUpdatesPopup());
-      popup.querySelector("#updatesPopupConfirm")?.addEventListener("click", () => this.closeUpdatesPopup());
-
       const shouldOpen = forceState ?? !popup.classList.contains("visible");
+      if (shouldOpen && !popup.classList.contains("visible")) {
+        this.showingPreviousUpdateLogs = false;
+      }
+
+      this.renderUpdatesPopup();
       popup.classList.toggle("visible", shouldOpen);
       document.getElementById("updatesPopupBackdrop")?.classList.toggle("visible", shouldOpen);
       button.setAttribute("aria-expanded", shouldOpen ? "true" : "false");

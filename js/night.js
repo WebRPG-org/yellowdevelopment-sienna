@@ -697,7 +697,10 @@ made by yellowdevelopment
         // Update the titles count label
         const titlesLabel = document.getElementById('titlesCount');
         if (titlesLabel) {
-          titlesLabel.textContent = `Currently Showing ${visibleCount} Titles`;
+          const providerLabel = category === 'All Games' ? (window.nightLibrary?.label?.() || '') : '';
+          titlesLabel.textContent = providerLabel
+            ? `Currently Showing ${visibleCount} Titles from ${providerLabel}`
+            : `Currently Showing ${visibleCount} Titles`;
         }
 
         const cards = el.querySelectorAll('.browse-card');
@@ -1032,6 +1035,55 @@ made by yellowdevelopment
     },
   };
 
+  // Expose the active game library so external providers (js/providers.js) can
+  // swap the grid contents while keeping search, favorites and the game window.
+  window.nightLibrary = {
+    baseGames: null,
+    providerLabel: '',
+
+    label() {
+      return this.providerLabel;
+    },
+
+    setGames(games, options = {}) {
+      if (!this.baseGames) this.baseGames = window.MAGES_GAMES; // built-in list
+      this.providerLabel = options.label || '';
+
+      // Providers only expose games, so drop night.'s category filter (its
+      // picker is hidden while a provider is active).
+      activeCategory = 'All Games';
+      const dropdownLabel = document.getElementById('browseDropdownLabel');
+      if (dropdownLabel) dropdownLabel.textContent = activeCategory;
+      document.querySelectorAll('.browse-dropdown-item').forEach((item) => {
+        item.classList.toggle('active', item.dataset.value === activeCategory);
+      });
+
+      window.MAGES_GAMES = Array.isArray(games) ? games : [];
+      this.refresh();
+    },
+
+    restore() {
+      if (this.baseGames) window.MAGES_GAMES = this.baseGames;
+      this.providerLabel = '';
+      this.refresh();
+    },
+
+    showMessage(message) {
+      const text = String(message || '');
+      const el = document.getElementById('browseGrid');
+      if (el) el.innerHTML = `<p class="browse-empty">${util.escapeHtml(text)}</p>`;
+      const titlesLabel = document.getElementById('titlesCount');
+      if (titlesLabel) titlesLabel.textContent = text;
+      search.apply();
+    },
+
+    refresh() {
+      grid.render(activeCategory);
+      favorites.render();
+      featured.reloadForCategory(activeCategory);
+    },
+  };
+
   // Expose gameVisor globally so sienna.js can open internal tabs
   window.gameVisor = {
     overlay: null,
@@ -1045,6 +1097,7 @@ made by yellowdevelopment
     fullscreenBtn: null,
     refreshBtn: null,
     openBlankBtn: null,
+    downloadBtn: null,
     infoBtn: null,
     infoTooltip: null,
     infoModal: null,
@@ -1081,6 +1134,7 @@ made by yellowdevelopment
       this.fullscreenBtn = document.getElementById('gameVisorFullscreen');
       this.refreshBtn = document.getElementById('gameVisorRefresh');
       this.openBlankBtn = document.getElementById('gameVisorOpenBlank');
+      this.downloadBtn = document.getElementById('gameVisorDownload');
       this.dock = document.getElementById('gameVisorDock');
       this.dockToggle = document.getElementById('gameVisorDockToggle');
       this.dockTabs = document.getElementById('gameVisorDockTabs');
@@ -1095,6 +1149,7 @@ made by yellowdevelopment
       this.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
       this.refreshBtn?.addEventListener('click', () => this.refresh());
       this.openBlankBtn?.addEventListener('click', () => this.openBlank());
+      this.downloadBtn?.addEventListener('click', () => this.downloadCurrentGame());
       this.dockToggle.addEventListener('click', () => this.toggleDock());
       this.bindIframeEvents();
 
@@ -1200,6 +1255,15 @@ made by yellowdevelopment
     updateTitleArea(name, gameData) {
       this.titleEl.textContent = name;
       this.currentGameData = gameData;
+
+      // The download action only applies to provider games (gn-math).
+      if (this.downloadBtn) {
+        const canDownload = Boolean(gameData && window.siennaProviders?.supportsDownload?.(gameData));
+        this.downloadBtn.style.display = canDownload ? '' : 'none';
+        this.downloadBtn.disabled = false;
+        this.downloadBtn.title = 'Download game HTML';
+      }
+
       if (!this.infoBtn) {
         this.infoBtn = document.createElement('button');
         this.infoBtn.className = 'game-visor-info-btn';
@@ -1221,18 +1285,19 @@ made by yellowdevelopment
       return `gv-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 7)}`;
     },
 
-    addTab(url, name, gameData = null) {
+    addTab(url, name, gameData = null, key = url) {
       // Settings are never added to the persistent tabs array
       if (url === 'internal:settings') return null;
 
-      const existing = this.tabs.find((t) => t.url === url);
+      // `key` identifies the game: blob URLs are new every time a game is opened.
+      const existing = this.tabs.find((t) => (t.key || t.url) === key);
       if (existing) {
         this.activeTabId = existing.id;
         this.renderDock();
         return existing;
       }
 
-      const tab = { id: this.makeTabId(url), url, name, loaded: false, gameData };
+      const tab = { id: this.makeTabId(url), url, key, name, loaded: false, gameData };
       this.tabs.push(tab);
       this.activeTabId = tab.id;
       this.saveTabsToStorage();
@@ -1286,7 +1351,9 @@ made by yellowdevelopment
       // Check if game has embedded HTML — use blob URL instead of file path
       const blobUrl = this.getGameHtmlBlobUrl(gameData);
       const resolvedUrl = isSettings ? url : (blobUrl || util.resolveUrl(url));
-      const tab = this.addTab(resolvedUrl, name, gameData);
+      // Blob URLs are unique per play, so identify those tabs by the game's URL.
+      const tabKey = blobUrl && gameData?.url ? util.resolveUrl(gameData.url) : resolvedUrl;
+      const tab = this.addTab(resolvedUrl, name, gameData, tabKey);
 
 
       // If settings, we track the ID manually but don't save to array
@@ -1561,8 +1628,25 @@ made by yellowdevelopment
       }
       const section = this.currentGameData.section || 'N/A';
       const author = this.currentGameData.author || 'N/A';
-      this.infoModal.querySelector('.game-visor-info-modal-content').innerHTML = `Section: ${util.escapeHtml(section)}<br>Author: ${util.escapeHtml(author)}`;
+      const provider = this.currentGameData._provider || '';
+      const providerLine = provider ? `<br>Provider: ${util.escapeHtml(provider)}` : '';
+      const content = this.infoModal.querySelector('.game-visor-info-modal-content');
+      content.innerHTML = `Section: ${util.escapeHtml(section)}<br>Author: ${util.escapeHtml(author)}${providerLine}`;
       this.infoModalOverlay.style.display = 'flex';
+    },
+
+    // Titlebar action, delegated to js/providers.js so providers can save their games.
+    async downloadCurrentGame() {
+      const button = this.downloadBtn;
+      if (!button || !this.currentGameData || !window.siennaProviders?.download) return;
+      button.disabled = true;
+      button.title = 'Preparing download…';
+      const saved = await window.siennaProviders.download(this.currentGameData);
+      button.disabled = false;
+      button.title = saved ? 'Downloaded' : 'Download failed';
+      setTimeout(() => {
+        if (!button.disabled) button.title = 'Download game HTML';
+      }, 2000);
     },
 
     hideInfoModal() {
@@ -1678,6 +1762,16 @@ made by yellowdevelopment
   //  Initialized via window.siennaAccount.init()
   // ═══════════════════════════════════════════════════════
 
+  /**
+   * Open a game in the game window. Provider games (gn-math) are raw .html files
+   * on a CDN, which browsers render as plain text, so their HTML is fetched first
+   * and then run from a blob URL by gameVisor.
+   */
+  const launchGame = async (url, name, gameData = null) => {
+    const html = await window.siennaProviders?.gameHtml?.(gameData);
+    gameVisor.open(url, name, html ? { ...gameData, html } : gameData);
+  };
+
   function boot() {
     customGames.load();
     customGames.initModal();
@@ -1733,7 +1827,7 @@ made by yellowdevelopment
           } catch (e) {}
         }
         if (url && url !== '#') {
-          gameVisor.open(url, name, gameData);
+          launchGame(url, name, gameData);
         }
     };
 
@@ -1762,7 +1856,7 @@ made by yellowdevelopment
         } catch (e) {}
       }
       if (url && url !== '#') {
-        gameVisor.open(url, title, gameData);
+        launchGame(url, title, gameData);
       }
     });
 

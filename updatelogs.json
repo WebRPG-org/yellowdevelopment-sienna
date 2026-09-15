@@ -1,0 +1,136 @@
+{
+  "updates": [
+    {
+      "title": "Sienna v0.5.0 | Night. v0.5.0 | Build 013",
+      "sections": [
+        {
+          "title": "",
+          "description": "Performance improvements like idle memory usage from 700mb to ~380mb. Minor UI and Bug fixes involving lag. New menu UI for settings and added Updates Bar. New Games"
+        }
+      ]
+    },
+    {
+      "title": "Sienna v0.8 | Build 16",
+      "sections": [
+        {
+          "title": "",
+          "description": "Design overhaul. New features like custom games, more accessibility options. Legacy card view. Numerous bug fixes and performance optimizations targeted for lower end devices. Removed some games but added a few."
+        }
+      ]
+    },
+    {
+      "title": "Sienna v0.8.5 | Build 17",
+      "sections": [
+        {
+          "title": "",
+          "description": "New games, bug fixes, added gn-math as a provider (still working on it) | night. should work with html runners now"
+        }
+      ]
+    },
+    {
+      "title": "Sienna v0.8.6 | Build 18",
+      "sections": [
+        {
+          "title": "",
+          "description": "Small Update | Resized LuminSDK and updated gn-math provider"
+        }
+      ]
+    },
+    {
+      "title": "Sienna v0.9 | Build 19",
+      "sections": [
+        {
+          "title": "New Updates Panel You're looking at it right now",
+          "description": ""
+        },
+        {
+          "title": "Website Redesign Looks better ig. Organized settings, added animations. Added classic sienna ASCII logo",
+          "description": ""
+        },
+        {
+          "title": "New games Fixed Geometry Dash. Added: -3 and -b",
+          "description": ""
+        },
+        {
+          "title": "Numerous Bug Fixes Animation fixes, performance improvements, and more.",
+          "description": ""
+        },
+        {
+          "title": "New gn-math design Fixed various issues with the previous gn-math provider (Tip: If a game isn't available or you dislike night., you can use a different provider like gn-math or Lumin)",
+          "description": ""
+        },
+        {
+          "title": "Bubbles on homescreen Cool poppable bubbles (toggleable in settings)",
+          "description": ""
+        },
+        {
+          "title": "Tab Cloaking Cloak your tab with a variety of presets to keep sienna hidden",
+          "description": ""
+        },
+        {
+          "title": "Download and Upload your save data (improved) Improved and added the managing save data options. (Pro tip: Use example.com?savemydata to save your data if you're unable to go on the site & ?clear to reset your data.)",
+          "description": ""
+        },
+        {
+          "title": "File stuff Compressed images (Could cause faster loading times)",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "title": "Sienna v1.0 | Build 20",
+      "sections": [
+        {
+          "title": "looks",
+          "description": "Changed the theme to a cool black theme (legacy blue available in settings). Changed all buttons to match an glass theme."
+        },
+        {
+          "title": "Accounts w/ Cloud saves",
+          "description": "Added an account feature where a majority of data can be saved and synced automatically across devices. Still in beta so it's highly recomended to still manually backup your data in settings and if any games provide the option."
+        },
+        {
+          "title": "Game Hacks?",
+          "description": "Added small hacks for games like Drift boss & Monkey mart where you can choose vehicles & edit coins. You can find these in settings --> games | Inspired by Phantom Games"
+        },
+        {
+          "title": "beta",
+          "description": "I just say everythings beta because it's not even done yet and i dont wanna fix it but v1.0 beta"
+        }
+      ]
+    },
+    {
+      "title": "Sienna v1.1.1 | Build 21",
+      "sections": [
+        {
+          "title": "Games",
+          "description": "Added Trombone Champ, Added How To Fish, Added 20 Minutes till Dawn, Added Miside, Added Half-Life, Added Half-Life: Opposing Force, Added GTA 3, Added Granny 3, Added Peak, Updated Bendy and the Ink --> Complete Edition, Updated Brotato --> Paws & Claws Update, Fixed Monster Tracks, Removed Speed Stars (Due to Glitch), Removed Base Eaglercraft 1.12.2, Removed GTA 1 & 2 (Didn't Work), Removed Half-Life 2 (Flash)"
+        },
+        {
+          "title": "New Alternative Domains",
+          "description": "ixl-recommendations.vercel.app, usesienna.pages.dev, sienna.yellowdevelopment.workers.dev"
+        },
+        {
+          "title": "Minor Patches",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "title": "Sienna v1.1.2 | Build 22",
+      "sections": [
+        {
+          "title": "Games",
+          "description": "Added Trombone Champ, Added How To Fish, Added 20 Minutes till Dawn, Added Miside, Added Half-Life, Added Half-Life: Opposing Force, Added GTA 3, Added Granny 3, Added Peak, Updated Bendy and the Ink --> Complete Edition, Updated Brotato --> Paws & Claws Update, Fixed Monster Tracks, Removed Speed Stars (Due to Glitch), Removed Base Eaglercraft 1.12.2, Removed GTA 1 & 2 (Didn't Work), Removed Half-Life 2 (Flash)"
+        },
+        {
+          "title": "New Alternative Domains",
+          "description": "ixl-recommendations.vercel.app, usesienna.pages.dev, sienna.yellowdevelopment.workers.dev"
+        },
+        {
+          "title": "Minor Patches",
+          "description": "Deleted Speedstars and Five Night's at Frickbears 3 Gamecards. Renamed Google Classroom prenamed cloak to include the - Classroom."
+        }
+      ]
+    }
+  ]
+}

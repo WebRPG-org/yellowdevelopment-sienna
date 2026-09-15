@@ -29,6 +29,7 @@ made by yellowdevelopment
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="sienna. | The best free unbl*cked games site. | Personalized learning with a comprehensive K-12 curriculum meeting the needs of unique learners.">
   <meta name="theme-color" content="#050505">
   <title>sienna.</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -167,6 +168,9 @@ made by yellowdevelopment
       <div class="game-visor-actions">
         <button id="gameVisorRefresh" class="game-visor-action-btn" type="button" aria-label="Refresh game">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 4v5h5M4 13a8.1 8.1 0 0 0 15.5 2M20 20v-5h-5"></path></svg>
+        </button>
+        <button id="gameVisorDownload" class="game-visor-action-btn" type="button" aria-label="Download game HTML" title="Download game HTML" style="display:none;">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg>
         </button>
         <button id="gameVisorOpenBlank" class="game-visor-action-btn" type="button" aria-label="Open game in new tab">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7M10 14L21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path></svg>
@@ -325,17 +329,14 @@ made by yellowdevelopment
   <!-- ═══════════════════════════════════════════════════════
        SIENNA CORE SCRIPTS
   ════════════════════════════════════════════════════════ -->
-  <script src="mages.js" defer></script>
-  <script src="apps.js" defer></script>
+  <script src="js/mages.js" defer></script>
+  <script src="js/apps.js" defer></script>
+  <script src="js/providers.js" defer></script>
   <script src="js/sienna.js" defer></script>
   <script src="js/save.js" defer></script>
   <script src="js/siennadb.js" defer></script>
   <script src="js/night.js" defer></script>
 
-  <!-- ═══════════════════════════════════════════════════════
-       PLUGIN SYSTEM
-       Add normal plugin files to PLUGIN_FILES in plugins.js.
-  ════════════════════════════════════════════════════════ -->
   <script src="js/plugins.js" defer></script>
 
   <!-- ── Tutorial Overlay ── -->
@@ -414,9 +415,6 @@ made by yellowdevelopment
       </div>
     </div>
   </div>
-
-  <!-- HACKS
-       Hacks are loaded from HACK_FILES in plugins.js. -->
 
 </body>
 </html>
